@@ -1,0 +1,76 @@
+{
+  "name": "digital-wallet",
+  "version": "1.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "prepare": "husky install",
+    "build": "rimraf dist/ && BABEL_ENV=dev babel ./ --out-dir dist/ --ignore ./node_modules",
+    "start": "nodemon --exec BABEL_ENV=dev babel-node src/index.js",
+    "start:serve": "node dist/src/index.js",
+    "format": "prettier --write ./src",
+    "lint": "eslint --ext .jsx --ext .js src/ --fix",
+    "lint:nibble": "eslint-nibble --ext .jsx --ext .js src/"
+  },
+  "dependencies": {
+    "@koa/cors": "^4.0.0",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.3.1",
+    "jsonwebtoken": "^9.0.2",
+    "koa": "^2.14.2",
+    "koa-body": "^6.0.1",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^12.0.0",
+    "moment": "^2.29.4",
+    "pg": "^8.11.3",
+    "sequelize": "^6.33.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.15",
+    "@babel/core": "^7.22.20",
+    "@babel/eslint-parser": "^7.22.15",
+    "@babel/node": "^7.22.19",
+    "@babel/preset-env": "^7.22.20",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-babel-module": "^5.3.2",
+    "eslint-nibble": "^8.1.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.3",
+    "rimraf": "^5.0.1",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src",
+      ".env"
+    ],
+    "exec": "yarn start"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "eslint --ext .js --ext .jsx ./src --fix",
+      "prettier --write ./src --ignore-unknown"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
